@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,11 +19,11 @@ public class MeasurementService {
     }
 
     @Transactional(readOnly = false)
-    public void addMeasurement(Measurement measurement){
+    public void saveNewMeasurement(Measurement measurement){
         measurementRepository.save(measurement);
     }
 
-    public List<Measurement> findAll (){
+    public List<Measurement> findAllMeasurements(){
         return measurementRepository.findAll();
     }
 
