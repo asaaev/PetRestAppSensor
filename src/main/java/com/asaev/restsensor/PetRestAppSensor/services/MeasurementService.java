@@ -28,7 +28,7 @@ public class MeasurementService {
     }
 
     public Long getRainyDaysCount(){
-        return measurementRepository.countRainyDays();
+        return measurementRepository.getRainyMeasurementsCount();
     }
 
 }

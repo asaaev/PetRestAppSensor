@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -16,18 +18,19 @@ public class Measurement {
     @Column(name = "measurement_id")
     private int measurementId;
 
-    @NotEmpty(message = "Field value should not be empty")
+    @NotNull(message = "Field value should not be empty")
     @DecimalMin(value = "-100", inclusive = true)
     @DecimalMax(value = "100", inclusive = true)
     @Column(name = "value")
     private double measurementValue;
 
 
-    @NotEmpty(message = "Field raining should not be empty")
+    @NotNull(message = "Field raining should not be empty")
     @Column(name = "raining")
     private boolean measurementRaining;
 
     @Column(name = "timestamp")
+    @CreationTimestamp
     private LocalDateTime measurementCreatedAtTime;
 
     @ManyToOne

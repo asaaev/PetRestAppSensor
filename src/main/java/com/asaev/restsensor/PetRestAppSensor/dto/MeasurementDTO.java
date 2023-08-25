@@ -1,22 +1,21 @@
 package com.asaev.restsensor.PetRestAppSensor.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class MeasurementDTO {
 
 
-    @NotEmpty(message = "Field value should not be empty")
+    @NotNull(message = "Field value should not be empty")
     @DecimalMin(value = "-100", inclusive = true)
     @DecimalMax(value = "100", inclusive = true)
     private double measurementValue;
 
-    @NotEmpty(message = "Field raining should not be empty")
+    @NotNull(message = "Field raining should not be empty")
     private boolean measurementRaining;
 
-    private SensorDTO sensor;
+    private String sensor;
 
 
 
@@ -36,11 +35,11 @@ public class MeasurementDTO {
         this.measurementRaining = measurementRaining;
     }
 
-    public SensorDTO getSensor() {
+    public String getSensor() {
         return sensor;
     }
 
-    public void setSensor(SensorDTO sensor) {
+    public void setSensor(String sensor) {
         this.sensor = sensor;
     }
 }

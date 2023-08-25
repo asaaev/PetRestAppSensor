@@ -5,9 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface MeasurementRepository extends JpaRepository<Measurement, Integer> {
-//    @Query("SELECT COUNT(DISTINCT DATE(m.timestamp)) FROM Measurement m WHERE m.measurementRaining = true")
-@Query(value = "SELECT COUNT(DISTINCT DATE_TRUNC('day', m.timestamp)) FROM Measurement m WHERE m.raining = true", nativeQuery = true)
+    //Query with filter per day
+    @Query(value = "SELECT COUNT(DISTINCT DATE_TRUNC('day', m.timestamp)) FROM Measurement m WHERE m.raining = true", nativeQuery = true)
+    long countRainyDays();
 
-long countRainyDays();
+    @Query("SELECT COUNT(m) FROM Measurement m WHERE m.measurementRaining = true")
+    Long getRainyMeasurementsCount();
 
 }

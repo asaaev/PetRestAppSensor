@@ -2,9 +2,11 @@ package com.asaev.restsensor.PetRestAppSensor.controllers;
 
 import com.asaev.restsensor.PetRestAppSensor.dto.MeasurementDTO;
 import com.asaev.restsensor.PetRestAppSensor.models.Measurement;
+import com.asaev.restsensor.PetRestAppSensor.models.Sensor;
 import com.asaev.restsensor.PetRestAppSensor.services.MeasurementService;
 import com.asaev.restsensor.PetRestAppSensor.services.SensorService;
 import com.asaev.restsensor.PetRestAppSensor.util.*;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,16 @@ public class MeasurementController {
             }
             throw new MeasurementNotCreatedException(errorMsg.toString());
         }
-        measurementService.saveNewMeasurement(convertToMeasurement(measurementDTO));
+        Sensor existingSensor = sensorService.findSensorByName(measurementDTO.getSensor());
+        if (existingSensor == null) {
+            throw new EntityNotFoundException("Sensor with name " + measurementDTO.getSensor() + " not found");
+        }
+        Measurement measurement = convertToMeasurement(measurementDTO);
+        measurement.setSensor(existingSensor);
+        measurementService.saveNewMeasurement(measurement);
+
+
+//        measurementService.saveNewMeasurement(convertToMeasurement(measurementDTO));
 
         return ResponseEntity.ok(HttpStatus.OK);
     }

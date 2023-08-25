@@ -23,14 +23,14 @@ public class SensorService {
     public List<Sensor> findAll(){
         return sensorRepository.findAll();
     }
-//    public Sensor findOne(int id){
-//        Optional<Sensor> findSensor = sensorRepository.findById(id);
-//        return findSensor.orElseThrow(SensorNotFoundException::new);
-//    }
-//    public Sensor findSensorByName(String sensorName){
-//        Optional<Sensor> findByName = sensorRepository.findBySensorName(sensorName);
-//        return findByName.orElseThrow(SensorNotFoundException::new);
-//    }
+    public Sensor findSensorById(int id){
+        Optional<Sensor> findSensor = sensorRepository.findById(id);
+        return findSensor.orElseThrow(SensorNotFoundException::new);
+    }
+    public Sensor findSensorByName(String sensorName){
+        Optional<Sensor> findByName = sensorRepository.findBySensorName(sensorName);
+        return findByName.orElseThrow(SensorNotFoundException::new);
+    }
     @Transactional(readOnly = false)
     public void saveNewSensor(Sensor sensor){
         sensorRepository.save(sensor);
